@@ -14,7 +14,7 @@ class TaskListsViewSet(viewsets.ModelViewSet):
     """
     queryset = TasksList.objects.all()
     serializer_class = TasksListSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    # permission_classes = [permissions.IsAuthenticated] If we want to use basic auth credentials
 
     """
     Get all tasks lists     GET /api/lists/
