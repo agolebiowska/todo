@@ -10,7 +10,7 @@ class TasksList(models.Model):
 
 
 class Task(models.Model):
-    task_list = models.ForeignKey(TasksList, on_delete=models.CASCADE)
+    task_list = models.ForeignKey(TasksList, related_name='tasks', on_delete=models.CASCADE)
     description = models.CharField(max_length=200)
     is_done = models.BooleanField(default=0)
 

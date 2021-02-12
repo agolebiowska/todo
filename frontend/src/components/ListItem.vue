@@ -1,13 +1,15 @@
 <template>
-  <v-card>
+  <v-card
+      class="mx-auto"
+      max-width="344"
+      height="250"
+  >
     <v-card-text>
-      <v-card-title class="white--text mt-8">
-        <p class="ml-3">
-          {{ list.title }}
-        </p>
-      </v-card-title>
-
-      <div class="font-weight-bold ml-8 mb-2">
+      <p class="display-1 text--primary">
+        {{ list.title }}
+      </p>
+      <p>3/10</p>
+      <div class="text--primary">
         {{ list.description }}
       </div>
     </v-card-text>

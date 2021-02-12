@@ -119,11 +119,12 @@ USE_TZ = True
 
 CORS_ORIGIN_ALLOW_ALL = False
 
-# CORS_ORIGIN_WHITELIST = (
-#     'http://127.0.0.1:8000',
-# )
+# Allow requests only from our frontend app
+CORS_ORIGIN_WHITELIST = [
+    "http://localhost:8080",
+]
 
-CORS_ALLOW_ALL_ORIGINS = True
+# Allow only those methods we defined in our api
 CORS_ALLOW_METHODS = [
     'DELETE',
     'GET',
@@ -136,6 +137,7 @@ CORS_ALLOW_METHODS = [
 
 STATIC_URL = '/static/'
 
+# Pagination settings
 REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 10
