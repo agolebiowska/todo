@@ -7,7 +7,9 @@
     <div v-if="loading">
       <Spinner />
     </div>
-    <ListItem :list="list"/>
+    <div v-else>
+      <ListItem v-bind:list="list"/>
+    </div>
   </section>
 </template>
 
@@ -24,20 +26,21 @@ export default {
   },
   data() {
     return {
+      endpoint: process.env.VUE_APP_API_URL + 'lists/',
       list: null,
       loading: true,
       errored: false,
     };
   },
   mounted() {
+    const id = this.$route.params.id
     axios
-        .get('http://127.0.0.1:8000/api/lists/' + 1)
+        .get(this.endpoint + id)
         .then((response) => {
           this.list = response.data;
         })
-        .catch((error) => {
+        .catch(() => {
           this.errored = true;
-          console.log(error);
         })
         .finally(() => {
           this.loading = false;

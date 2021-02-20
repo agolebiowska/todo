@@ -18,6 +18,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+/*
+  Pretty spinner css I had in my old repository, I don't remember from where I took this code
+ */
 .atom-spinner, .atom-spinner * {
   box-sizing: border-box;
 }

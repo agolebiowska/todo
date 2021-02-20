@@ -2,13 +2,13 @@ from .models import TasksList, Task
 from rest_framework import serializers
 
 
-class TaskSerializer(serializers.HyperlinkedModelSerializer):
+class TaskSerializer(serializers.ModelSerializer):
     class Meta:
         model = Task
         fields = ['id', 'description', 'is_done', 'task_list']
 
 
-class TasksListSerializer(serializers.HyperlinkedModelSerializer):
+class TasksListSerializer(serializers.ModelSerializer):
     tasks = TaskSerializer(many=True, read_only=True)
 
     class Meta:

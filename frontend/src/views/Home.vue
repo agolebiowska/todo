@@ -28,6 +28,7 @@ export default {
   },
   data() {
     return {
+      endpoint: process.env.VUE_APP_API_URL + 'lists',
       lists: [],
       loading: true,
       errored: false,
@@ -35,13 +36,12 @@ export default {
   },
   mounted() {
     axios
-        .get('http://127.0.0.1:8000/api/lists')
+        .get(this.endpoint)
         .then((response) => {
           this.lists = response.data.results;
         })
-        .catch((error) => {
+        .catch(() => {
           this.errored = true;
-          console.log(error);
         })
         .finally(() => {
           this.loading = false;

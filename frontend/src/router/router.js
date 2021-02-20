@@ -15,7 +15,8 @@ const routes = [
     {
         name: 'Item',
         path: '/item/:id',
-        component: Item
+        component: Item,
+        params: {id: null}
     },
     {
         name: 'About',
