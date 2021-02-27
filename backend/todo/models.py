@@ -1,5 +1,6 @@
 from django.db import models
 
+"""Define models"""
 
 class TasksList(models.Model):
     title = models.CharField(max_length=200)

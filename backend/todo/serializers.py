@@ -1,6 +1,7 @@
 from .models import TasksList, Task
 from rest_framework import serializers
 
+"""Define how our models can be serialized"""
 
 class TaskSerializer(serializers.ModelSerializer):
     class Meta:

@@ -33,6 +33,7 @@ export default {
     };
   },
   mounted() {
+    // Get list by id after component gets mounted
     const id = this.$route.params.id
     axios
         .get(this.endpoint + id)

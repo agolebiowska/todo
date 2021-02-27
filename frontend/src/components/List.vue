@@ -1,6 +1,7 @@
 <template>
   <v-container fluid>
     <v-row dense>
+<!--      Loop through lists and display cards-->
       <v-col
           v-for="list in lists"
           :key="list.id"
@@ -8,9 +9,7 @@
           sm="4"
       >
         <v-card v-on:click="goToItem(list.id)"
-            class="mx-auto"
-            max-width="344"
-            height="250"
+              style="width: 250px;height: 250px"
         >
           <v-card-text>
             <p class="display-1 text--primary">
@@ -22,21 +21,22 @@
                 x
               </v-btn>
             </p>
-            <p>{{ list.tasks.length }}</p>
+<!--            Display number of finished tasks-->
+            <p>{{ getDoneTasksNumber(list.tasks) }}/{{ list.tasks.length }}</p>
             <div class="text--primary">
               {{ list.description }}
             </div>
           </v-card-text>
         </v-card>
       </v-col>
+<!--      Add list form-->
       <v-card v-on:click="isAdd=true"
-              class="mx-auto"
-              max-width="344"
-              height="250"
+              style="width: 250px;height: 250px"
       >
         <v-card-text>
           <div v-if="isAdd">
             <v-text-field
+                :rules="['Required']"
                 label="Nazwa"
                 v-model="newList.title"
                 solo
@@ -93,7 +93,9 @@ export default {
   },
   methods: {
     goToItem: function (id) {
+      // when we click on delete button we don't want to go to item page
       if (this.isDelete) return
+
       router.push({name: 'Item', params: {id: id}})
     },
     addList: function () {
@@ -102,17 +104,22 @@ export default {
           .then((response) => {
             this.lists.push(response.data)
             this.isAdd = false
-            console.log(response)
           })
           .catch(() => {
+          })
+          .finally(() => {
+            this.newList = {
+              title: '',
+              description: ''
+            }
           })
     },
     deleteList: function (id) {
       axios
           .delete(`${this.endpoint + id}/`)
-          .then((response) => {
+          .then(() => {
+            // after deleting a list in api also remove from it local data
             this.lists = this.lists.filter(x => { return x.id !== id })
-            console.log(response)
           })
           .catch((error) => {
             console.log(error);
@@ -124,11 +131,14 @@ export default {
             }
             this.isDelete = false
           })
+    },
+    // Get number of done tasks for a list
+    getDoneTasksNumber(tasks) {
+      return tasks.filter(task => { return task.is_done }).length
     }
   }
 }
 </script>
 
 <style scoped>
-
 </style>

@@ -6,6 +6,7 @@ import Item from '../views/Item'
 
 Vue.use(VueRouter)
 
+// define routes in our application
 const routes = [
     {
         name: 'Home',

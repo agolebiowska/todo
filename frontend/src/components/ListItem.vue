@@ -1,9 +1,11 @@
 <template>
   <v-container style="max-width: 900px">
+<!--    if in edit state show input fields else show title and description-->
     <v-text-field
         v-if="isEdit"
         :label="list.title"
         v-model="editedList.title"
+        :rules="['Required']"
         solo
         dense
     ></v-text-field>
@@ -70,6 +72,7 @@
       >
         <v-text-field
             label="Nowe zadanie"
+            :rules="['Required']"
             v-model="newTask"
             solo
             dense
@@ -116,6 +119,7 @@ export default {
       axios
           .delete(`${this.endpoint + this.list.id}/tasks/${id}`)
           .then(() => {
+            // remove deleted task from local data
             this.list.tasks = this.list.tasks.filter(x => { return x.id !== id })
           })
           .catch(() => {
@@ -129,7 +133,9 @@ export default {
       axios
           .post(`${this.endpoint + this.list.id}/tasks/`, task)
           .then((response) => {
+            // update tasks list
             this.list.tasks.push(response.data)
+            // set form field back to empty
             this.newTask = ''
           })
           .catch(() => {
@@ -146,10 +152,10 @@ export default {
       this.isEdit = false
       axios
           .put(`${this.endpoint + this.list.id}/`, this.editedList)
-          .then((response) => {
+          .then(() => {
+            // Update local fields with new values
             this.list.title = this.editedList.title
             this.list.description = this.editedList.description
-            console.log(response)
           })
           .catch(() => {
           })

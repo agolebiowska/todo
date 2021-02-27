@@ -35,6 +35,7 @@ export default {
     };
   },
   mounted() {
+    // Get list of task lists after component gets mounted
     axios
         .get(this.endpoint)
         .then((response) => {
